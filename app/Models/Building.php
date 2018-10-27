@@ -4,7 +4,7 @@ namespace App\Models\IPS;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\OptimusTrait;
+use App\Models\Traits\OptimusTrait;
 
 /**
  * Class Building
@@ -32,6 +32,6 @@ class Building extends Model
      */
     public function floors()
     {
-        return $this->hasMany('uKonect\Models\IPS\Floor');
+        return $this->hasMany('App\Models\IPS\Floor');
     }
 }

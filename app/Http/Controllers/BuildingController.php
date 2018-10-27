@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use uKonect\Http\Requests;
-use uKonect\Http\Controllers\Controller;
-use uKonect\Models\IPS\Building;
-use uKonect\Http\Requests\Admin\BuildingRequest;
+use App\Models\IPS\Building;
+use App\Http\Requests\BuildingRequest;
 
 class BuildingController extends Controller
 {
@@ -109,7 +106,7 @@ class BuildingController extends Controller
      * Update building.
      *
      * @param Building $building
-     * @param \uKonect\Http\Requests\Admin\GroupRequest $request
+     * @param \App\Http\Requests\BuildingRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      * @internal param $

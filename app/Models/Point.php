@@ -2,11 +2,11 @@
 
 namespace App\Models\IPS;
 
-use Barryvdh\Reflection\DocBlock\Type\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\OptimusTrait;
+use App\Models\Traits\OptimusTrait;
 
 /**
  * Class Point
@@ -40,7 +40,7 @@ class Point extends Model
      */
     public function fingerprints()
     {
-        return $this->hasMany('uKonect\Models\IPS\Fingerprint');
+        return $this->hasMany('App\Models\Fingerprint');
     }
 
     /**
@@ -48,6 +48,6 @@ class Point extends Model
      */
     public function floor()
     {
-        return $this->belongsTo('uKonect\Models\IPS\Floor');
+        return $this->belongsTo('App\Models\Floor');
     }
 }

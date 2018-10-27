@@ -2,11 +2,11 @@
 
 namespace App\Models\IPS;
 
-use Barryvdh\Reflection\DocBlock\Type\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\OptimusTrait;
+use App\Models\Traits\OptimusTrait;
 
 /**
  * Class Fingerprint
@@ -34,7 +34,7 @@ class Fingerprint extends Model
      */
     public function wifiSamples()
     {
-        return $this->hasMany('uKonect\Models\IPS\WifiSample');
+        return $this->hasMany('App\Models\IPS\WifiSample');
     }
 
     /**
@@ -42,7 +42,7 @@ class Fingerprint extends Model
      */
     public function bluetoothSamples()
     {
-        return $this->hasMany('uKonect\Models\IPS\BluetoothSample');
+        return $this->hasMany('App\Models\IPS\BluetoothSample');
     }
 
     /**
@@ -50,7 +50,7 @@ class Fingerprint extends Model
      */
     public function magneticSamples()
     {
-        return $this->hasMany('uKonect\Models\IPS\MagneticSample');
+        return $this->hasMany('App\Models\IPS\MagneticSample');
     }
 
     /**
@@ -58,6 +58,6 @@ class Fingerprint extends Model
      */
     public function point()
     {
-        return $this->belongsTo('uKonect\Models\IPS\Point');
+        return $this->belongsTo('App\Models\IPS\Point');
     }
 }

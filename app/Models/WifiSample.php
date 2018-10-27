@@ -4,7 +4,7 @@ namespace App\Models\IPS;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\OptimusTrait;
+use App\Models\Traits\OptimusTrait;
 
 /**
  * Class WifiSample
@@ -33,6 +33,6 @@ class WifiSample extends Model
      */
     public function fingerprint()
     {
-        return $this->belongsTo('uKonect\Models\IPS\Fingerprints');
+        return $this->belongsTo('App\Models\Fingerprints');
     }
 }

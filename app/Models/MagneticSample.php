@@ -36,6 +36,6 @@ class MagneticSample extends Model
      */
     public function fingerprint()
     {
-        return $this->belongsTo('uKonect\Models\IPS\Fingerprints');
+        return $this->belongsTo('App\Models\Fingerprints');
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\Models\IPS;
 
-use Doctrine\Common\Collections\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use App\Models\OptimusTrait;
+use App\Models\Traits\OptimusTrait;
 
 /**
  * Class Floor
@@ -41,7 +41,7 @@ class Floor extends Model
      */
     public function points()
     {
-        return $this->hasMany('uKonect\Models\IPS\Point');
+        return $this->hasMany('App\Models\Point');
     }
 
     /**
@@ -49,7 +49,7 @@ class Floor extends Model
      */
     public function building()
     {
-        return $this->belongsTo('uKonect\Models\IPS\Building');
+        return $this->belongsTo('App\Models\Building');
     }
 
     /**
@@ -57,6 +57,6 @@ class Floor extends Model
      */
     public function fingerprints()
     {
-        return $this->hasManyThrough('uKonect\Models\IPS\Fingerprint', 'uKonect\Models\IPS\Point');
+        return $this->hasManyThrough('App\Models\Fingerprint', 'App\Models\Point');
     }
 }

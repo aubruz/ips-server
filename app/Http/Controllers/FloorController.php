@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Models\IPS\Building;
 use App\Models\IPS\Floor;
-use App\Http\Requests\Admin\FloorRequest;
+use App\Http\Requests\FloorRequest;
 
 class FloorController extends Controller
 {
@@ -120,7 +118,7 @@ class FloorController extends Controller
      *
      * @param Building $building
      * @param Floor $floor
-     * @param \uKonect\Http\Requests\Admin\GroupRequest $request
+     * @param \App\Http\Requests\FloorRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      * @internal param $
