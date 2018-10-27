@@ -13,6 +13,33 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:api']], function () {
+
+    // Route to the location service
+    Route::post('find/location', [
+        'uses'       => 'IpsController@getLocation',
+        'as'         => 'find.location',
+    ]);
+
+// Route to save a fingerprint
+    Route::post('floors/{floor}/fingerprints', [
+        'uses' => 'IpsController@saveFingerprints',
+        'as'   => 'save.fingerprint',
+    ]);
+
+// Route to get the buildings list
+    Route::resource('buildings', 'BuildingController', [
+        'only' => ['index'],
+    ]);
+
+//Route to get the floor lists
+    Route::resource('buildings.floors', 'FloorController', [
+        'only' => ['index'],
+    ]);
+
+// Route to create or delete a point on a map
+    Route::resource('floors.points', 'PointController', [
+        'only' => ['index', 'destroy'],
+    ]);
 });
+
