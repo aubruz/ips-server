@@ -90,8 +90,6 @@ class BuildingController extends Controller
         $building->address = $request->input('address');
         $building->save();
 
-        dd($building->encoded_id);
-
         return redirect()->route('buildings.show', $building->encoded_id)->withInput()
             ->with('status', 'Building created with success.')
             ->with('status_level', 'success');
@@ -140,7 +138,7 @@ class BuildingController extends Controller
         $building->save();
 
         return view('building.show', [
-            'admin'    => $request->user('admin'),
+            'admin'    => $request->user(),
             'building' => $building,
             'readonly' => true,
         ]);
