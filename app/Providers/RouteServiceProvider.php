@@ -27,21 +27,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('floor', function ($value) {
-            $floor = Floor::find(optimus_decode($value));
-            if (! $floor) {
-                throw new NotFoundHttpException();
-            }
-
-            return $floor;
+            return  Floor::find(optimus_decode($value)) ?? abort(404);
         });
 
         Route::bind('building', function ($value) {
-            $building = Building::find(optimus_decode($value));
-            if (! $building) {
-                throw new NotFoundHttpException();
-            }
-
-            return $building;
+            return  Building::find(optimus_decode($value)) ?? abort(404);
         });
 
         parent::boot();
