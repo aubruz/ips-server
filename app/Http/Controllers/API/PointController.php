@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\PointCollection;
+use App\Http\Resources\Point as PointResource;
 use Illuminate\Http\Request;
 use App\Models\Floor;
 use App\Models\Point;
@@ -13,13 +13,14 @@ class PointController extends ApiController
     {
         $points = $floor->points;
 
-        //return $this->respond(Resource::collection($points, new PointTransformer(), 'points'));
-        return PointCollection::collection($points);
+        return PointResource::collection($points);
     }
 
     public function destroy(Request $request, Floor $floor, Point $point)
     {
         //TODO verify that the point belongs to the $floor
         $point->delete();
+
+        $this->respondDeleted();
     }
 }

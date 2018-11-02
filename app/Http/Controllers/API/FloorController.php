@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\FloorCollection;
+use App\Http\Resources\Floor as FloorResource;
 use Illuminate\Http\Request;
 use App\Models\Building;
 
@@ -13,7 +13,6 @@ class FloorController extends ApiController
     {
         $floors = $building->floors;
 
-        //return $this->respond(Resource::collection($floors, new FloorTransformer(), 'floors'));
-        return FloorCollection::collection($floors);
+        return FloorResource::collection($floors);
     }
 }

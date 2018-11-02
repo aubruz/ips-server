@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Models\Building;
-use App\Http\Resources\BuildingCollection;
+use App\Http\Resources\Building as BuildingResource;
 
 class BuildingController extends ApiController
 {
@@ -12,8 +12,6 @@ class BuildingController extends ApiController
     {
         $buildings = Building::all();
 
-        //return $this->respond(Resource::collection($buildings, new BuildingTransformer(), 'buildings'));
-
-        return BuildingCollection::collection($buildings);
+        return BuildingResource::collection($buildings);
     }
 }
