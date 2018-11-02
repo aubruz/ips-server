@@ -11,6 +11,16 @@ use App\Http\Requests\FloorRequest;
 class FloorController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Index floors of given building.
      *
      * @param \Illuminate\Http\Request $request

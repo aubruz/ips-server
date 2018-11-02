@@ -9,6 +9,16 @@ use App\Http\Requests\BuildingRequest;
 class BuildingController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Index groups.
      *
      * @param \Illuminate\Http\Request $request
