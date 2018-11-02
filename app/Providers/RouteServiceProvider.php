@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Building;
+use App\Models\Floor;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,7 +26,23 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::bind('floor', function ($value) {
+            $floor = Floor::find(optimus_decode($value));
+            if (! $floor) {
+                throw new NotFoundHttpException();
+            }
+
+            return $floor;
+        });
+
+        Route::bind('building', function ($value) {
+            $building = Building::find(optimus_decode($value));
+            if (! $building) {
+                throw new NotFoundHttpException();
+            }
+
+            return $building;
+        });
 
         parent::boot();
     }
