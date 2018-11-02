@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\IPS\Building;
+use App\Models\Building;
 use App\Http\Requests\BuildingRequest;
 
 class BuildingController extends Controller
@@ -17,7 +17,7 @@ class BuildingController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Index groups.
      *
@@ -36,8 +36,8 @@ class BuildingController extends Controller
                 ->paginate(20);
         }
 
-        return view('admin.building.index', [
-            'admin'  => $request->user('admin'),
+        return view('building.index', [
+            'admin'  => $request->user(),
             'buildings' => $buildings,
             'search' => $search,
         ]);
@@ -53,8 +53,8 @@ class BuildingController extends Controller
      */
     public function show(Building $building, Request $request)
     {
-        return view('admin.building.show', [
-            'admin'    => $request->user('admin'),
+        return view('building.show', [
+            'admin'    => $request->user(),
             'building' => $building,
             'readonly' => true,
         ]);
@@ -69,8 +69,8 @@ class BuildingController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.building.create', [
-            'admin'    => $request->user('admin'),
+        return view('building.create', [
+            'admin'    => $request->user(),
             'readonly' => true,
         ]);
     }
@@ -90,7 +90,9 @@ class BuildingController extends Controller
         $building->address = $request->input('address');
         $building->save();
 
-        return redirect()->route('admin.buildings.show', $building->encoded_id)->withInput()
+        dd($building->encoded_id);
+
+        return redirect()->route('buildings.show', $building->encoded_id)->withInput()
             ->with('status', 'Building created with success.')
             ->with('status_level', 'success');
     }
@@ -105,8 +107,8 @@ class BuildingController extends Controller
      */
     public function edit(Building $building, Request $request)
     {
-        return view('admin.building.show', [
-            'admin'    => $request->user('admin'),
+        return view('building.show', [
+            'admin'    => $request->user(),
             'building' => $building,
             'readonly' => false,
         ]);
@@ -137,7 +139,7 @@ class BuildingController extends Controller
 
         $building->save();
 
-        return view('admin.building.show', [
+        return view('building.show', [
             'admin'    => $request->user('admin'),
             'building' => $building,
             'readonly' => true,
@@ -155,7 +157,7 @@ class BuildingController extends Controller
     {
         $building->delete();
 
-        return redirect()->route('admin.buildings.index')->withInput()
+        return redirect()->route('buildings.index')->withInput()
             ->with('status', 'Building deleted with success.')
             ->with('status_level', 'success');
     }

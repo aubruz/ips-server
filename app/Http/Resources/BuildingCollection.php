@@ -7,6 +7,13 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class BuildingCollection extends ResourceCollection
 {
     /**
+     * The resource that this resource collects.
+     *
+     * @var string
+     */
+    public $collects = 'App\Http\Resources\Building';
+
+    /**
      * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -15,9 +22,7 @@ class BuildingCollection extends ResourceCollection
     public function toArray($building)
     {
         return [
-            'id'        => $building->encoded_id,
-            'name'      => $building->name,
-            'address'   => $building->address,
+            'buildings'  => $this->collection,
         ];
     }
 }

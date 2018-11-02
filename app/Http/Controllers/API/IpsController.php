@@ -4,10 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\Requests;
-use App\Http\Transformers\BuildingTransformer;
-use App\Http\Transformers\FloorTransformer;
-use App\Http\Transformers\PointTransformer;
-use App\Http\Transformers\Resource;
+use App\Http\Resources\Building as BuildingResource;
+use App\Http\Resources\Floor as FloorResource;
+use App\Http\Resources\Point as PointResource;
 use App\Models\BluetoothSample;
 use App\Models\Fingerprint;
 use App\Models\Floor;
@@ -69,9 +68,9 @@ class IpsController extends ApiController
         if($point) {
             //return $this->respond($point);
             $locationFound = [
-                'building' => Resource::item($point->floor->building, new BuildingTransformer()),
-                'floor'    => Resource::item($point->floor, new FloorTransformer()),
-                'point'    => Resource::item($point, new PointTransformer())
+                'building' => new BuildingResource($point->floor->building),
+                'floor'    => new FloorResource($point->floor),
+                'point'    => new PointResource($point),
             ];
 
             return $this->respond($locationFound);
@@ -83,7 +82,7 @@ class IpsController extends ApiController
 
     /**
      * @param \Illuminate\Database\Eloquent\Collection $fingerprints
-     * @param \uKonect\Http\Libraries\Vector $baseVector
+     * @param \App\Http\Libraries\Vector $baseVector
      *
      * @return null
      */
@@ -179,8 +178,8 @@ class IpsController extends ApiController
     }
 
     /**
-     * @param \uKonect\Http\Requests\IPS\SaveFingerprintsRequest $request
-     * @param \uKonect\Models\IPS\Floor $floor
+     * @param \App\Http\Requests\SaveFingerprintsRequest $request
+     * @param \App\Models\Floor $floor
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -218,6 +217,6 @@ class IpsController extends ApiController
             $fingerprint->magneticSamples()->save(new MagneticSample($request->input('magnetic')));
         }
 
-        return $this->respondCreated(Resource::item($point, new PointTransformer(), 'point'));
+        return $this->respondCreated(new PointResource($point));
     }
 }
