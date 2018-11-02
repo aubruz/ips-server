@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\IPS;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,6 +32,6 @@ class Building extends Model
      */
     public function floors()
     {
-        return $this->hasMany('App\Models\IPS\Floor');
+        return $this->hasMany('App\Models\Floor');
     }
 }

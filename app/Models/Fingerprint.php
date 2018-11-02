@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\IPS;
+namespace App\Models;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +34,7 @@ class Fingerprint extends Model
      */
     public function wifiSamples()
     {
-        return $this->hasMany('App\Models\IPS\WifiSample');
+        return $this->hasMany('App\Models\WifiSample');
     }
 
     /**
