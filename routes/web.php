@@ -17,7 +17,5 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::resource('buildings', 'BuildingController');
 Route::resource('buildings.floors', 'FloorController');

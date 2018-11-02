@@ -13,18 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['auth:api']], function () {
-
+//Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['namespace' => 'API', 'as' => 'api.'], function () {
     // Route to the location service
     Route::post('find/location', [
-        'uses'       => 'IpsController@getLocation',
-        'as'         => 'find.location',
+        'uses' => 'IpsController@getLocation',
+        'as' => 'find.location',
     ]);
 
 // Route to save a fingerprint
     Route::post('floors/{floor}/fingerprints', [
         'uses' => 'IpsController@saveFingerprints',
-        'as'   => 'save.fingerprint',
+        'as' => 'save.fingerprint',
     ]);
 
 // Route to get the buildings list
@@ -41,5 +41,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::resource('floors.points', 'PointController', [
         'only' => ['index', 'destroy'],
     ]);
+//});
 });
 
