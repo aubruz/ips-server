@@ -1,11 +1,10 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Administration')
-@section('body-class', 'manager')
+@section('body-class', 'floors')
 
-@section('body')
+@section('content')
     <div id="nav-wrapper">
-        @include('admin.navs')
         <div class="container">
             <h2>Floor {{ $floor->name }} of {{ $building->name }}</h2>
         </div>
@@ -14,10 +13,10 @@
         <div class="row">
             <div class="col-xs-12">
                 @if ($readonly)
-                    <a href="{{ route('admin.buildings.floors.edit', [$building->encoded_id, $floor->encoded_id]) }}" class="pull-right btn btn-default">Edit</a>
+                    <a href="{{ route('buildings.floors.edit', [$building->encoded_id, $floor->encoded_id]) }}" class="pull-right btn btn-default">Edit</a>
                 @else
                     <button type="submit" class="pull-right btn btn-primary" form="form">Save</button>
-                    <a href="{{ route('admin.buildings.floors.show', [$building->encoded_id, $floor->encoded_id]) }}" class="pull-right btn btn-link">Cancel</a>
+                    <a href="{{ route('buildings.floors.show', [$building->encoded_id, $floor->encoded_id]) }}" class="pull-right btn btn-link">Cancel</a>
                 @endif
             </div>
         </div>
@@ -26,7 +25,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <form enctype="multipart/form-data" id="form" role="form" method="POST" action="{{ route('admin.buildings.floors.update', [$building->encoded_id, $floor->encoded_id]) }}">
+                <form enctype="multipart/form-data" id="form" role="form" method="POST" action="{{ route('buildings.floors.update', [$building->encoded_id, $floor->encoded_id]) }}">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

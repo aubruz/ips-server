@@ -1,11 +1,10 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Administration')
 @section('body-class', 'manager')
 
-@section('body')
+@section('content')
     <div id="nav-wrapper">
-        @include('admin.navs')
         <div class="container">
             <h2>Floors Management of {{ $building->name }}</h2>
         </div>
@@ -16,15 +15,14 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-10">
-                <input type="text" data-href="{{ route('admin.buildings.floors.index', $building->encoded_id) }}" class="form-control" id="search_field" placeholder="Search" value="{{ $search }}">
+                <input type="text" data-href="{{ route('buildings.floors.index', $building->encoded_id) }}" class="form-control" id="search_field" placeholder="Search" value="{{ $search }}">
             </div>
             <div class="col-xs-12 col-sm-2">
-                <br class="visible-xs">
-                <button id="search" data-href="{{ route('admin.buildings.floors.index', $building->encoded_id) }}" class="btn btn-primary btn-block">Search</button>
+                <button id="search" data-href="{{ route('buildings.floors.index', $building->encoded_id) }}" class="btn btn-primary btn-block">Search</button>
             </div>
         </div>
         <hr>
-        <a href="{{ route('admin.buildings.floors.create', $building->encoded_id) }}" class="btn btn-info btn-xs" style="margin-bottom: 15px;">Create new floor</a>
+        <a href="{{ route('buildings.floors.create', $building->encoded_id) }}" class="btn btn-info btn-xs" style="margin-bottom: 15px;">Create new floor</a>
         <div class="panel panel-default">
             <table class="table">
                 <thead>
@@ -40,7 +38,7 @@
                     <tr>
                         <td>{{ $building->id }}</td>
                         <td>
-                            <a href="{{ route('admin.buildings.floors.show', [$building->encoded_id, $floor->encoded_id]) }}">
+                            <a href="{{ route('buildings.floors.show', [$building->encoded_id, $floor->encoded_id]) }}">
                                 {{ $floor->name }}
                             </a>
                         </td>
@@ -49,9 +47,9 @@
                         </td>
                         <td>
                             <form role="form" method="POST" style="width:49%;display: inline-block;"
-                                  action="{{ route('admin.buildings.floors.destroy', [$building->encoded_id, $floor->encoded_id]) }}">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                  action="{{ route('buildings.floors.destroy', [$building->encoded_id, $floor->encoded_id]) }}">
+                                @method('DELETE')
+                                @csrf
                                 <button class="btn btn-danger btn-block btn-xs" style="width: 100%"
                                         type="submit" onclick="return confirm('Are you sure ?');">
                                     Remove floor

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\IPS\Building;
-use App\Models\IPS\Floor;
+use App\Models\Building;
+use App\Models\Floor;
 use App\Http\Requests\FloorRequest;
 
 class FloorController extends Controller
@@ -39,8 +39,8 @@ class FloorController extends Controller
                 ->paginate(20);
         }
 
-        return view('admin.floor.index', [
-            'admin'     => $request->user('admin'),
+        return view('floor.index', [
+            'admin'     => $request->user(),
             'building'  => $building,
             'floors'    => $floors,
             'search'    => $search,
@@ -58,8 +58,8 @@ class FloorController extends Controller
      */
     public function show(Building $building, Floor $floor, Request $request)
     {
-        return view('admin.floor.show', [
-            'admin'    => $request->user('admin'),
+        return view('floor.show', [
+            'admin'    => $request->user(),
             'building' => $building,
             'floor'    => $floor,
             'readonly' => true,
@@ -76,8 +76,8 @@ class FloorController extends Controller
      */
     public function create(Building $building, Request $request)
     {
-        return view('admin.floor.create', [
-            'admin'    => $request->user('admin'),
+        return view('floor.create', [
+            'admin'    => $request->user(),
             'building' => $building,
             'readonly' => true,
         ]);
@@ -99,7 +99,7 @@ class FloorController extends Controller
 
         $building->floors()->save($floor);
 
-        return redirect()->route('admin.buildings.floors.show', [$building->encoded_id, $floor->encoded_id])->withInput()
+        return redirect()->route('buildings.floors.show', [$building->encoded_id, $floor->encoded_id])->withInput()
             ->with('status', 'Floor created with success.')
             ->with('status_level', 'success');
     }
@@ -115,8 +115,8 @@ class FloorController extends Controller
      */
     public function edit(Building $building, Floor $floor, Request $request)
     {
-        return view('admin.floor.show', [
-            'admin'    => $request->user('admin'),
+        return view('floor.show', [
+            'admin'    => $request->user(),
             'building' => $building,
             'floor' => $floor,
             'readonly' => false,
@@ -143,15 +143,15 @@ class FloorController extends Controller
             $name = sprintf('blueprints/%s', $floor->encoded_id);
             $file = file_get_contents($request->file('blueprint')->getRealPath());
             Storage::cloud()->put($name, $file, 'public');
-
+            //TODO change to local storage
             $url = sprintf('https://%s.s3.amazonaws.com/%s', config('filesystems.disks.s3.bucket'), $name);
             $floor->blueprint = $url;
         }
 
         $floor->save();
 
-        return view('admin.floor.show', [
-            'admin'    => $request->user('admin'),
+        return view('floor.show', [
+            'admin'    => $request->user(),
             'building' => $building,
             'floor'    => $floor,
             'readonly' => true,
@@ -170,7 +170,7 @@ class FloorController extends Controller
     {
         $floor->delete();
 
-        return redirect()->route('admin.buildings.floors.index', $building->encoded_id)->withInput()
+        return redirect()->route('buildings.floors.index', $building->encoded_id)->withInput()
             ->with('status', 'Floor deleted with success.')
             ->with('status_level', 'success');
     }

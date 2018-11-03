@@ -76,5 +76,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('custom_scripts')
 </body>
 </html>
