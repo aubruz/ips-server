@@ -1,11 +1,10 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('title', 'Administration')
-@section('body-class', 'manager')
+@section('body-class', 'buildings')
 
-@section('body')
+@section('content')
     <div id="nav-wrapper">
-        @include('admin.navs')
         <div class="container">
             <h2>{{ $building->name }}</h2>
         </div>
@@ -14,10 +13,10 @@
         <div class="row">
             <div class="col-xs-12">
                 @if ($readonly)
-                    <a href="{{ route('admin.buildings.edit', $building->encoded_id) }}" class="pull-right btn btn-default">Edit</a>
+                    <a href="{{ route('buildings.edit', $building->encoded_id) }}" class="pull-right btn btn-default">Edit</a>
                 @else
                     <button type="submit" class="pull-right btn btn-primary" form="form">Save</button>
-                    <a href="{{ route('admin.buildings.show', $building->encoded_id) }}" class="pull-right btn btn-link">Cancel</a>
+                    <a href="{{ route('buildings.show', $building->encoded_id) }}" class="pull-right btn btn-link">Cancel</a>
                 @endif
             </div>
         </div>
@@ -26,9 +25,9 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-6">
-                <form enctype="multipart/form-data" id="form" role="form" method="POST" action="{{ route('admin.buildings.update', $building->encoded_id) }}">
-                    <input type="hidden" name="_method" value="PUT">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <form enctype="multipart/form-data" id="form" role="form" method="POST" action="{{ route('buildings.update', $building->encoded_id) }}">
+                    @method('PUT')
+                    @csrf
 
                     <div class="form-group">
                         <label for="name" class="control-label">Name</label>
@@ -78,7 +77,7 @@
                         @endforeach
                     </ul>
                 </div>
-                <a href="{{ route('admin.buildings.floors.index', $building->encoded_id) }}" class="btn btn-info btn-xs">Manage floors of this building</a>
+                <a href="{{ route('buildings.floors.index', $building->encoded_id) }}" class="btn btn-info btn-xs">Manage floors of this building</a>
             </div>
         </div>
     </div>
